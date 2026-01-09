@@ -201,6 +201,7 @@ C:\dev\Dima\Dima.Api\obj\Debug\net10.0\Dima.Api.AssemblyInfo.cs
 C:\dev\Dima\Dima.Api\obj\Debug\net10.0\Dima.Api.csproj.CoreCompileInputs.cache
 C:\dev\Dima\Dima.Api\obj\Debug\net10.0\Dima.Api.MvcApplicationPartsAssemblyInfo.cs
 C:\dev\Dima\Dima.Api\obj\Debug\net10.0\Dima.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\dev\Dima\Dima.Api\obj\Debug\net10.0\Dima.Api.sourcelink.json
 C:\dev\Dima\Dima.Api\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\dev\Dima\Dima.Api\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\dev\Dima\Dima.Api\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json

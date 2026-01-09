@@ -13,16 +13,10 @@ var cnnStr = builder
     .Configuration
     .GetConnectionString("DefaultConnection") ?? string.Empty;
 
-builder.Services.AddDbContext<AppDbContext>(x =>
-{
-    x.UseSqlServer(cnnStr);
-});
+builder.Services.AddDbContext<AppDbContext>(x => { x.UseSqlServer(cnnStr); });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(x =>
-{
-    x.CustomSchemaIds(n => n.FullName);
-});
+builder.Services.AddSwaggerGen(x => { x.CustomSchemaIds(n => n.FullName); });
 builder
     .Services
     .AddTransient<ICategoryHandler, CategoryHandler>();
@@ -32,15 +26,40 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapPost(
-        "/v1/categories", 
-        (
-                CreateCategoryRequest request, 
-                Handler handler) 
-            => handler.Handle(request))
+app.MapPost("/v1/categories", async (CreateCategoryRequest request,
+                ICategoryHandler handler)
+            => await handler.CreateAsync(request))
     .WithName("Categories: Create")
-    .WithSummary("Creates a new category")
-    .Produces<Response<Category>>();
+    .WithSummary("Criar uma nova categoria.")
+    .Produces<Response<Category?>>();
+
+app.MapPut("/v1/categories/{id}",
+            async (long id,
+            UpdateCategoryRequest request,
+            ICategoryHandler handler) 
+        =>
+    {
+        request.Id = id;
+        return await handler.UpdateAsync(request);
+    })
+    .WithName("Categories: Update")
+    .WithSummary("Atualiza uma categoria.")
+    .Produces<Response<Category?>>();
+
+app.MapDelete("/v1/categories/{id}",
+                async (long id,
+                ICategoryHandler handler)
+            =>
+        {
+            var request = new DeleteCategoryRequest
+            {
+                Id = id,
+                UserId = ""
+            };
+            return await handler.DeleteAsync(request);
+        })
+    .WithName("Categories: Delete")
+    .WithSummary("Excluir uma categoria.")
+    .Produces<Response<Category?>>();
 
 app.Run();
-
